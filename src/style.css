@@ -1,0 +1,121 @@
+/* Global Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #ffffff;
+  color: #1f2937;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode body */
+.dark {
+  background-color: #0c0a09;
+  color: #f3f4f6;
+}
+
+/* Reusable Utility Classes */
+
+.section-wrapper {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.5rem;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.dark .section-title {
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .section-title { font-size: 3rem; }
+}
+
+.section-subtitle {
+  color: #F97316;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+/* Badge / pill tag */
+.badge {
+  display: inline-block;
+  background-color: rgba(249, 115, 22, 0.1);
+  color: #F97316;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-block;
+  background-color: #F97316;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #FB923C;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Ghost button */
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.dark .btn-ghost {
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.btn-ghost:hover {
+  border-color: #F97316;
+  color: #F97316;
+}
+
+/* Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
