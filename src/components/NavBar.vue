@@ -12,6 +12,7 @@ export default {
     return {
       scrolled: false,
       mobileOpen: false,
+      currentHash: '',
 
       navLinks: [
         { href: '#about', label: 'About' },
@@ -24,17 +25,27 @@ export default {
   },
 
   mounted() {
+    this.currentHash = window.location.hash || '#hero'
     window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('hashchange', this.handleHashChange)
   },
 
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('hashchange', this.handleHashChange)
   },
 
   methods: {
     handleScroll() {
       this.scrolled = window.scrollY > 50
     },
+    handleHashChange() {
+      this.currentHash = window.location.hash
+    },
+    handleLinkClick(href) {
+      this.currentHash = href
+      this.mobileOpen = false
+    }
   },
 }
 </script>
@@ -48,15 +59,20 @@ export default {
   ]">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
 
-      <!-- Logo / Name -->
-      <a href="#hero" class="font-display text-xl text-gray-900 dark:text-white transition-colors">
+      <a href="#hero" @click="handleLinkClick('#hero')" class="font-display text-xl text-gray-900 dark:text-white transition-colors">
         PB<span class="text-orange-500">.</span>
       </a>
 
-      <!-- Desktop Nav Links -->
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 dark:text-gray-400">
         <li v-for="link in navLinks" :key="link.href">
-          <a :href="link.href" class="hover:text-orange-500 dark:hover:text-orange-500 transition-colors duration-200">
+          <a :href="link.href" 
+             @click="handleLinkClick(link.href)"
+             :class="[
+               'transition-colors duration-200',
+               currentHash === link.href 
+                 ? 'text-orange-500 font-semibold' 
+                 : 'hover:text-orange-500 dark:hover:text-orange-500'
+             ]">
             {{ link.label }}
           </a>
         </li>
@@ -64,7 +80,6 @@ export default {
 
       <div class="flex items-center gap-3">
 
-        <!-- Dark / Light Mode Toggle Button -->
         <button @click="$emit('toggle-dark')" class="w-10 h-10 rounded-full flex items-center justify-center
                  text-gray-600 dark:text-gray-400
                  hover:bg-gray-100 dark:hover:bg-gray-800
@@ -86,7 +101,6 @@ export default {
           </span>
         </button>
 
-        <!-- Mobile Hamburger -->
         <button @click="mobileOpen = !mobileOpen" class="md:hidden w-10 h-10 rounded-full flex flex-col items-center justify-center gap-1.5
                  hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
           <span :class="['block w-5 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all duration-300',
@@ -100,17 +114,18 @@ export default {
       </div>
     </div>
 
-    <!-- Mobile Menu Dropdown -->
     <div v-if="mobileOpen"
       class="md:hidden bg-white dark:bg-stone-950 border-t border-gray-100 dark:border-stone-800 px-6 py-4">
-      <ul class="flex flex-col gap-4 text-sm font-medium text-gray-600 dark:text-gray-400">
+      <ul class="flex flex-col gap-4 text-sm font-medium">
         <li v-for="link in navLinks" :key="link.href">
-          <a :href="link.href" @click="handleLinkClick(link.href)" :class="[
-            'transition-colors duration-200 block py-1',
-            currentHash === link.href
-              ? 'text-orange-500 font-semibold'
-              : 'text-gray-600 dark:text-gray-400 hover:text-orange-500'
-          ]">
+          <a :href="link.href" 
+             @click="handleLinkClick(link.href)" 
+             :class="[
+               'transition-colors duration-200 block py-1',
+               currentHash === link.href
+                 ? 'text-orange-500 font-semibold'
+                 : 'text-gray-600 dark:text-gray-400 hover:text-orange-500'
+             ]">
             {{ link.label }}
           </a>
         </li>
