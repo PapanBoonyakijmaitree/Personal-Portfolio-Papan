@@ -49,8 +49,7 @@ export default {
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
 
       <!-- Logo / Name -->
-      <a href="#hero"
-        class="font-display text-xl text-gray-900 dark:text-white transition-colors">
+      <a href="#hero" class="font-display text-xl text-gray-900 dark:text-white transition-colors">
         PB<span class="text-orange-500">.</span>
       </a>
 
@@ -106,7 +105,12 @@ export default {
       class="md:hidden bg-white dark:bg-stone-950 border-t border-gray-100 dark:border-stone-800 px-6 py-4">
       <ul class="flex flex-col gap-4 text-sm font-medium text-gray-600 dark:text-gray-400">
         <li v-for="link in navLinks" :key="link.href">
-          <a :href="link.href" @click="mobileOpen = false" class="hover:text-orange-500 transition-colors">
+          <a :href="link.href" @click="handleLinkClick(link.href)" :class="[
+            'transition-colors duration-200 block py-1',
+            currentHash === link.href
+              ? 'text-orange-500 font-semibold'
+              : 'text-gray-600 dark:text-gray-400 hover:text-orange-500'
+          ]">
             {{ link.label }}
           </a>
         </li>
@@ -115,5 +119,3 @@ export default {
 
   </nav>
 </template>
-
-
